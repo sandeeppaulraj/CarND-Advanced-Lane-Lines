@@ -320,14 +320,42 @@ the function above generates x and y values for plotting. Then creates an image 
 
 #### 5. Calculating the Radius of Curvature of the Lane and the Position of the Vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+I did this in lines through the **obtain_curvature** function.
+
+The function header is shown below. This is called immediately after finding the right and left lanes.
+
+```sh
+def obtain_curvature(binary_warped, left_fit, right_fit):
+```
+The project helper videos had the following important tip that i picked up.
+
+```sh
+#Define conversions in x and y from pixels space to meters
+ym_per_pix = 30/720 #meters per pixel in y dimension
+xm_per_pix = 3.7/700 #meters per pixel in x dimension
+y_eval = np.max(ploty)
+```
+I fit new polynomials to x,y in world space and then calculate the new radii of curvature in meters.
+
+
 
 #### 6. Output Images
 
 I implemented this step using the **draw_image** function.
 
+After undistorting the images and creating a combined thresholds image, i proceed to find lanes and get curvature with the warped image. i then draw the lane onto the warped blank image and warp the blank back to original image space using inverse perspective matrix (Minv). I print out three pieces of information on each image.
 
+This is shown below.
 
+```sh
+cv2.putText(result, 'Left radius: {:.0f} m'.format(left_curverad), (50, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 255), 2)
+cv2.putText(result, 'Right radius: {:.0f} m'.format(right_curverad), (50, 100), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 255), 2) 
+    
+if (center < 0):
+   cv2.putText(result, 'vehicle is left of center by: {:.2f} m'.format(-center), (50, 150),    cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 255), 2) 
+else:
+    cv2.putText(result, 'vehicle is right of center by: {:.2f} m'.format(center), (50, 150), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 255), 2)
+```
 
 
 Below I show the output of all test images.
@@ -369,8 +397,6 @@ output_clip = clip.fl_image(process_image)
 I handle the video a little different compared to the static test images. The **pipeline** is where the each frame of the video is processed. In this after undistorting the images and creating a combined thresholds image, i proceed to find lanes and get curvature with the warped image. i then draw the lane onto the warped blank image and warp the blank back to original image space using inverse perspective matrix (Minv).
 
 
-
-
 I am providing a link to the project output video below. This is also embedded into the ipython notebook. 
 
 ```sh
@@ -407,5 +433,9 @@ This caused some major issues for me.
 * The perspective transform is a very critical part of the project. It is very impotrant to get this as **right** as possible. I had to spend a lot of time fine tuning this and trying out my project video with this perspective transform.
 
 * Combining Thresholds in time consuming but it is a fun experience.
+
+* I can see that the lines get a little wobbly when the color of the road surace changes. In one case, thsi is probably exacerbated by the presence of tress. These are all standard cases in the real world. The pipeline will need to be enhanced to take care of this eventuality.
+
+* My pipeline definitely needs to be enhanced with better tracking of lane lines and a smarter algorithm than what I have now. I will need to ahve multiple class objects for both left and right lanes.
 
 
