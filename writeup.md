@@ -32,7 +32,7 @@
 
 ### Writeup / README
 
-From a very high level the strategy i followed for this project was to dilligently follow the individual project videos and try out all the various variations using the test images using my own ipython notebooks. All the notebooks are checked into the project repository. However only 2 of them are actual required for this project submission itself.
+From a very high level the strategy I followed for this project was to dilligently follow the individual project videos and try out all the various variations using the test images using my own ipython notebooks. All the notebooks are checked into the project repository. However only 2 of them are actual required for this project submission itself.
 
 The 2 important ipython noetbooks for this project are
 
@@ -50,10 +50,10 @@ P4_Tranform_undistorted_images.ipynb
 
 The whole camera calibration is done in a separate ipthon notebook. This notebook is called **P4_Camera_Calibration.ipynb**
 
-First an foremost i have taken note of the fact that the images are9x6 chessboard images and i ahve updated my code appropriatley.
+First an foremost I have taken note of the fact that the images are 9x6 chessboard images and I have updated my code appropriately.
 
-The code is below. As can be seen, i first use open cv to find the chessboard corners.
-If these are present i proceed to drawt the image using chessboard corners. I msut make a note of the fact that not all images have chessboard corners being detected. There were a total of **seventeen** images that had chessboard corners.
+The code is below. As can be seen, I first use open cv to find the chessboard corners.
+If these are present i proceed to drawt the image using chessboard corners. I must make a note of the fact that not all images have chessboard corners being detected. There were a total of **seventeen** images that had chessboard corners.
 
 ```sh
 nx = 9
@@ -133,7 +133,7 @@ def cal_undistort(image, obj_points, img_points):
 ```
 
 
-I also save some of the important data using pickle. Thsi can be seen below.
+I also save some of the important data using pickle. This can be seen below.
 
 ```sh
 undist_pickle = {}
@@ -162,7 +162,7 @@ Below we can see a side by side image of a chessboard image with and without dis
 
 #### 1. Distortion Corrected Test Images.
 
-I read in the eight test images and undistort all eight of them using opencv. Below i present 2 examples of such undistorted images.
+I read in the eight test images and undistort all eight of them using opencv. Below I present 2 examples of such undistorted images.
 
 
 I load the previously saved **mtx** and **dist** information. I show this step below.
@@ -208,9 +208,9 @@ def get_undistorted_combined_warped_binary_image(img):
     return combined_warped
 ```
 
-In my project i have a function called get_undistorted_combined_warped_binary_image which first undistorts the test images.
+In my project I have a function called get_undistorted_combined_warped_binary_image which first undistorts the test images.
 
-After this i obtain the absolute sobel thersholds in both the x and y direction. In both the cases i use a kernel size of 3 and threshold range is 20 to 120.
+After this i obtain the absolute sobel thersholds in both the x and y direction. In both the cases I use a kernel size of 3 and threshold range is 20 to 120.
 
 I then use the s channel image with a threshold between 150 to 255.
 
@@ -280,9 +280,9 @@ An example is given below
 
 #### 4.  Identifying Lane Line Pixels
 
-I did leverage a lot of the starter code for obtaining the lane lines as shown in the project videos. I did have my own function to make the code moer modular.
+I did leverage a lot of the starter code for obtaining the lane lines as shown in the project videos. I did have my own function to make the code more modular.
 
-I have 2 separate function to detect lane lines.
+I have 2 separate functions to detect lane lines.
 
 The first one is below and is used to find the lane lines for the test images.
 
@@ -290,7 +290,7 @@ The first one is below and is used to find the lane lines for the test images.
 def finding_the_lines(binary_warped, windows = 9, margin = 100, minpix = 50):
 ```
 
-I have another more "advanced" lane lines function that i use in the project video output.
+I have another more "advanced" lane lines function that I use in the project video output.
 
 ```sh
 def advanced_find_lines(binary_warped, left_fit, right_fit):
@@ -299,17 +299,17 @@ def advanced_find_lines(binary_warped, left_fit, right_fit):
 In the project test video both the functions are used to detect lane lines.
 
 
-The first function above takes in a binary warped image and tkaes a histogram of the bottom half of the image. I then find the peak of the left and right halves of the histogram. These will be the starting point for the left and right lines. I then proceed to perform a sliding window search and choose the number of windows and the height of the windows. I then identify the x and y positions of all nonzero pixels in the image and appropriately set the margins. Then i have a for loop to step through the window one by one. I find the left and right indices and append them to lists. I extract left and right line pixel positions and finally fit a second order polynomial to each. This function iself is enough to find lanes in the test images.
+The first function above takes in a binary warped image and takes a histogram of the bottom half of the image. I then find the peak of the left and right halves of the histogram. These will be the starting point for the left and right lines. I then proceed to perform a sliding window search and choose the number of windows and the height of the windows. I then identify the x and y positions of all nonzero pixels in the image and appropriately set the margins. Then i have a for loop to step through the window one by one. I find the left and right indices and append them to lists. I extract left and right line pixel positions and finally fit a second order polynomial to each. This function iself is enough to find lanes in the test images.
 
 This needs to be enhanced for the video since we do not want to go through the entire process of window search for each and every frame in the video. My **advanced_find_lines** function takes in a binary warped image. It extracts left and right line pixel positions and fits in a second order polynomial.
 
-As an intermediate step to actually visualize the lines in the bianry warped image i have another function called **visualize_the_lines** which takes in a binary warped image as input.
+As an intermediate step to actually visualize the lines in the binary warped image i have another function called **visualize_the_lines** which takes in a binary warped image as input.
  
 ```sh
 def visualize_the_lines(binary_warped):
 ```
 
-the function above generates x and y values for plotting. Then creates an image to draw on and an image to show the selection window. Then generate a polygon to illustrate the search window area and recast the x and y points into usable format for cv2.fillPoly(). Then draw the lane onto the warped blank image. Examples can be seen below.
+The function above generates x and y values for plotting. Then creates an image to draw on and an image to show the selection window. Then generate a polygon to illustrate the search window area and recast the x and y points into usable format for cv2.fillPoly(). Then draw the lane onto the warped blank image. Examples can be seen below.
 
 
 ![alt text][image14]
@@ -320,7 +320,7 @@ the function above generates x and y values for plotting. Then creates an image 
 
 #### 5. Calculating the Radius of Curvature of the Lane and the Position of the Vehicle with respect to center.
 
-I did this in lines through the **obtain_curvature** function.
+I did this in the project through the **obtain_curvature** function.
 
 The function header is shown below. This is called immediately after finding the right and left lanes.
 
@@ -343,7 +343,7 @@ I fit new polynomials to x,y in world space and then calculate the new radii of 
 
 I implemented this step using the **draw_image** function.
 
-After undistorting the images and creating a combined thresholds image, i proceed to find lanes and get curvature with the warped image. i then draw the lane onto the warped blank image and warp the blank back to original image space using inverse perspective matrix (Minv). I print out three pieces of information on each image.
+After undistorting the images and creating a combined thresholds image, i proceed to find lanes and get curvature with the warped image. I then draw the lane onto the warped blank image and warp the blank back to original image space using inverse perspective matrix (Minv). I print out three pieces of information on each image.
 
 This is shown below.
 
@@ -434,8 +434,8 @@ This caused some major issues for me.
 
 * Combining Thresholds in time consuming but it is a fun experience.
 
-* I can see that the lines get a little wobbly when the color of the road surace changes. In one case, thsi is probably exacerbated by the presence of tress. These are all standard cases in the real world. The pipeline will need to be enhanced to take care of this eventuality.
+* I can see that the lines get a little wobbly when the color of the road surace changes. In one case, this is probably exacerbated by the presence of trees. These are all standard cases in the real world. The pipeline will need to be enhanced to take care of this eventuality.
 
-* My pipeline definitely needs to be enhanced with better tracking of lane lines and a smarter algorithm than what I have now. I will need to ahve multiple class objects for both left and right lanes.
+* My pipeline definitely needs to be enhanced with better tracking of lane lines and a smarter algorithm than what I have now. I will need to have multiple class objects for both left and right lanes.
 
 
