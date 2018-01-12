@@ -1,35 +1,17 @@
-## Writeup Template
+## Advanced Lane Finding Project
 
-### You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
 
 ---
 
-**Advanced Lane Finding Project**
-
-The goals / steps of this project are the following:
-
-* Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
-* Apply a distortion correction to raw images.
-* Use color transforms, gradients, etc., to create a thresholded binary image.
-* Apply a perspective transform to rectify binary image ("birds-eye view").
-* Detect lane pixels and fit to find the lane boundary.
-* Determine the curvature of the lane and vehicle position with respect to center.
-* Warp the detected lane boundaries back onto the original image.
-* Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
-
 [//]: # (Image References)
 
-[image1]: ./examples/undistort_output.png "Undistorted"
-[image2]: ./test_images/test1.jpg "Road Transformed"
-[image3]: ./examples/binary_combo_example.jpg "Binary Example"
-[image4]: ./examples/warped_straight_lines.jpg "Warp Example"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
+[image1]: ./chessboard_images/chessboard_image1.jpg "Chessboard image 1"
+[image2]: ./chessboard_images/chessboard_image2.jpg "Chessboard image 2"
+[image3]: ./chessboard_images/chessboard_image17.jpg "Chessboard image 17"
+[image1]: ./undistorted_chessboard_images/undistorted_chessboard_image6.jpg "Undistorted_ Chessboard image 6"
+[image2]: ./undistorted_chessboard_images/undistorted_chessboard_image8.jpg "Undistorted_Chessboard image 8"
+[image3]: ./undistorted_chessboard_images/undistorted_chessboard_image18.jpg "Undistorted_Chessboard image 17"
 [video1]: ./project_video.mp4 "Video"
-
-## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
-
-### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
 ---
 
@@ -93,9 +75,68 @@ for i in range(len(images_to_load)):
         plt.show()
 ```
 
-
+Some example images can be seen below
 
 ![alt text][image1]
+
+
+![alt text][image2]
+
+
+![alt text][image3]
+
+
+
+Before i proceed to undistort these images, I save the appropriate data using pickle.
+
+I save using the following sequence of code.
+
+```sh
+points_pickle = {}
+points_pickle["objpoints"] = objpoints
+points_pickle["imgpoints"] = imgpoints
+
+pickle.dump(points_pickle, open("camera_calibration_points.p", "wb" ) )
+```
+
+I then obtain obtain these saved points using the sequence of code below.
+
+```sh
+dist_pickle = pickle.load( open("camera_calibration_points.p", "rb" ) )
+objpts = dist_pickle["objpoints"]
+imgpts = dist_pickle["imgpoints"]
+```
+
+I then proceed to undistort the images using the calibrateCamera function of open cv using the function below.
+
+```sh
+def cal_undistort(image, obj_points, img_points):
+    #Use cv2.calibrateCamera() and cv2.undistort()
+    ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(obj_points, img_points, image.shape[1::-1], None, None)
+    dst = cv2.undistort(image, mtx, dist, None, mtx)
+    return dst
+```
+
+
+I also save some of the important data using pickle. Thsi can be seen below.
+
+```sh
+undist_pickle = {}
+undist_pickle["mtx"] = mtx
+undist_pickle["dist"] = dist
+pickle.dump(undist_pickle, open("mtx_dist_pickle.p", "wb" ))
+```
+
+Some undistorted example images can be seen below
+
+![alt text][image4]
+
+
+![alt text][image5]
+
+
+![alt text][image6]
+
 
 ### Pipeline (single images)
 
