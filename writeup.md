@@ -162,7 +162,20 @@ Below we can see a side by side image of a chessboard image with and without dis
 
 #### 1. Distortion Corrected Test Images.
 
-I read in the eight test images and undistort all eight of them using opencv. Belwo i present 2 examples of such undistorted images.
+I read in the eight test images and undistort all eight of them using opencv. Below i present 2 examples of such undistorted images.
+
+
+I load the previously saved **mtx** and **dist** information. I show this step below.
+
+```sh
+undist_pickle = {}
+
+undist_pickle = pickle.load(open("mtx_dist_pickle.p", "rb"))
+
+mtx = undist_pickle["mtx"]
+dist = undist_pickle["dist"]
+```
+
 
 ![alt text][image8]
 
@@ -195,7 +208,7 @@ def get_undistorted_combined_warped_binary_image(img):
     return combined_warped
 ```
 
-In my project i have a function called get_undistorted_combined_warped_binary_image which first undistorts the test image.
+In my project i have a function called get_undistorted_combined_warped_binary_image which first undistorts the test images.
 
 After this i obtain the absolute sobel thersholds in both the x and y direction. In both the cases i use a kernel size of 3 and threshold range is 20 to 120.
 
@@ -216,7 +229,9 @@ Below i show some examples.
 
 #### 3. Perspective transform
 
-The code for my perspective transform is below.
+The code for my perspective transform is below. 
+
+The source and destination points involved a lot of experimentation.
 
 ```python
 #Grab the image shape
@@ -265,7 +280,37 @@ An example is given below
 
 #### 4.  Identifying Lane Line Pixels
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+I did leverage a lot of the starter code for obtaining the lane lines as shown in the project videos. I did have my own function to make the code moer modular.
+
+I have 2 separate function to detect lane lines.
+
+The first one is below and is used to find the lane lines for the test images.
+
+```sh
+def finding_the_lines(binary_warped, windows = 9, margin = 100, minpix = 50):
+```
+
+I have another more "advanced" lane lines function that i use in the project video output.
+
+```sh
+def advanced_find_lines(binary_warped, left_fit, right_fit):
+```
+
+In the project test video both the functions are used to detect lane lines.
+
+
+The first function above takes in a binary warped image and tkaes a histogram of the bottom half of the image. I then find the peak of the left and right halves of the histogram. These will be the starting point for the left and right lines. I then proceed to perform a sliding window search and choose the number of windows and the height of the windows. I then identify the x and y positions of all nonzero pixels in the image and appropriately set the margins. Then i have a for loop to step through the window one by one. I find the left and right indices and append them to lists. I extract left and right line pixel positions and finally fit a second order polynomial to each. This function iself is enough to find lanes in the test images.
+
+This needs to be enhanced for the video since we do not want to go through the entire process of window search for each and every frame in the video. My **advanced_find_lines** function takes in a binary warped image. It extracts left and right line pixel positions and fits in a second order polynomial.
+
+As an intermediate step to actually visualize the lines in the bianry warped image i have another function called **visualize_the_lines** which takes in a binary warped image as input.
+ 
+```sh
+def visualize_the_lines(binary_warped):
+```
+
+the function above generates x and y values for plotting. Then creates an image to draw on and an image to show the selection window. Then generate a polygon to illustrate the search window area and recast the x and y points into usable format for cv2.fillPoly(). Then draw the lane onto the warped blank image. Examples can be seen below.
+
 
 ![alt text][image14]
 
@@ -279,10 +324,13 @@ I did this in lines # through # in my code in `my_other_file.py`
 
 #### 6. Output Images
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+I implemented this step using the **draw_image** function.
 
 
-Below i show the output of all test images.
+
+
+
+Below I show the output of all test images.
 
 
 ![alt text][image16]
@@ -305,6 +353,23 @@ Below i show the output of all test images.
 ---
 
 ### Pipeline (video)
+
+The following sequence of code preocess the video.
+
+```sh
+def process_image(image):
+    return pipeline(image)
+    
+output_video = './output_videos/output_video.mp4'
+clip = VideoFileClip('./project_video.mp4')
+output_clip = clip.fl_image(process_image)
+%time output_clip.write_videofile(output_video, audio=False)
+```
+
+I handle the video a little different compared to the static test images. The **pipeline** is where the each frame of the video is processed. In this after undistorting the images and creating a combined thresholds image, i proceed to find lanes and get curvature with the warped image. i then draw the lane onto the warped blank image and warp the blank back to original image space using inverse perspective matrix (Minv).
+
+
+
 
 I am providing a link to the project output video below. This is also embedded into the ipython notebook. 
 
