@@ -18,6 +18,14 @@
 [image11]: ./output_images/combo_thresh_image1.jpg "Combo Threshold image"
 [image12]: ./output_images/combo_thresh_image2.jpg "Combo Threshold image"
 [image13]: ./output_images/combo_thresh_image3.jpg "Combo Threshold image"
+[image14]: ./output_images/output_image0.jpg "Output image 0"
+[image15]: ./output_images/output_image1.jpg "Output image 1"
+[image16]: ./output_images/output_image2.jpg "Output image 2"
+[image17]: ./output_images/output_image3.jpg "Output image 3"
+[image18]: ./output_images/output_image4.jpg "Output image 4"
+[image19]: ./output_images/output_image5.jpg "Output image 5"
+[image20]: ./output_images/output_image6.jpg "Output image 6"
+[image21]: ./output_images/output_image7.jpg "Output image 7"
 [video1]: ./output_videos/output_video.mp4 "Video"
 
 ---
@@ -162,7 +170,7 @@ I read in the eight test images and undistort all eight of them using opencv. Be
 ![alt text][image9]
 
 
-#### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
+#### 2.  Thresholded Binary Image
 
 From this section onwards, all of the pertinent code can be seen in the project notebook.
 ```sh
@@ -270,6 +278,30 @@ I did this in lines # through # in my code in `my_other_file.py`
 I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
 
 
+Below i show the output of all the eight test images.
+
+![alt text][image14]
+
+
+![alt text][image15]
+
+
+![alt text][image16]
+
+
+![alt text][image17]
+
+
+![alt text][image18]
+
+
+![alt text][image19]
+
+
+![alt text][image20]
+
+
+![alt text][image21]
 
 ---
 
