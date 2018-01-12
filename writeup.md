@@ -18,8 +18,8 @@
 [image11]: ./output_images/combo_thresh_image1.jpg "Combo Threshold image"
 [image12]: ./output_images/combo_thresh_image2.jpg "Combo Threshold image"
 [image13]: ./output_images/combo_thresh_image3.jpg "Combo Threshold image"
-[image14]: ./output_images/output_image0.jpg "Output image 0"
-[image15]: ./output_images/output_image1.jpg "Output image 1"
+[image14]: ./binary_warped_images/binary_warped_line_image1.jpg "Binary Warped image 1"
+[image15]: ./binary_warped_images/binary_warped_line_image2.jpg "Binary Warped image 2"
 [image16]: ./output_images/output_image2.jpg "Output image 2"
 [image17]: ./output_images/output_image3.jpg "Output image 3"
 [image18]: ./output_images/output_image4.jpg "Output image 4"
@@ -267,6 +267,10 @@ An example is given below
 
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
+![alt text][image14]
+
+
+![alt text][image15]
 
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
@@ -278,12 +282,7 @@ I did this in lines # through # in my code in `my_other_file.py`
 I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
 
 
-Below i show the output of all the eight test images.
-
-![alt text][image14]
-
-
-![alt text][image15]
+Below i show the output of all test images.
 
 
 ![alt text][image16]
