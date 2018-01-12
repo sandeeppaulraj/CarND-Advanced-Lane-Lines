@@ -11,6 +11,7 @@
 [image4]: ./undistorted_chessboard_images/undistorted_chessboard_image6.jpg "Undistorted_ Chessboard image 6"
 [image5]: ./undistorted_chessboard_images/undistorted_chessboard_image8.jpg "Undistorted_Chessboard image 8"
 [image6]: ./undistorted_chessboard_images/undistorted_chessboard_image18.jpg "Undistorted_Chessboard image 17"
+[image7]: ./output_images/combo_orig_undist_cb_image.jpg "Combo Chessboard image"
 [video1]: ./output_videos/output_video.mp4 "Video"
 
 ---
@@ -136,6 +137,11 @@ Some undistorted example images can be seen below
 
 
 ![alt text][image6]
+
+
+Below we can see a side by side image of a chessboard image with and without distortion after having applied the undistortion.
+
+![alt text][image7]
 
 
 ### Pipeline (single images)
