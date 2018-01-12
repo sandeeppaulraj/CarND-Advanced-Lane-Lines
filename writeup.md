@@ -15,6 +15,9 @@
 [image8]: ./undistorted_images/undist_image2.jpg "Undistorted image 1"
 [image9]: ./undistorted_images/undist_image4.jpg "Undistorted image 2"
 [image10]: ./output_images/combo_perspective_image.jpg "Combo Perspective image"
+[image11]: ./output_images/combo_thresh_image1.jpg "Combo Threshold image"
+[image12]: ./output_images/combo_thresh_image2.jpg "Combo Threshold image"
+[image13]: ./output_images/combo_thresh_image3.jpg "Combo Threshold image"
 [video1]: ./output_videos/output_video.mp4 "Video"
 
 ---
@@ -166,8 +169,41 @@ From this section onwards, all of the pertinent code can be seen in the project 
 P4_Tranform_undistorted_images.ipynb
 ```
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+```sh
+def get_undistorted_combined_warped_binary_image(img):
+    undist_image = cv2.undistort(img, mtx, dist, None, mtx)
+    
+    #Apply each of the thresholding functions
+    gradx = abs_sobel_thresh(undist_image, orient='x', sobel_kernel=3, thresh=(20, 120))
+    grady = abs_sobel_thresh(undist_image, orient='y', sobel_kernel=3, thresh=(20, 120))
+    
+    hls_binary = hls_select(undist_image, thresh=(150, 255))
+    
+    combined = np.zeros_like(dir_binary)
+    combined[((gradx == 1) & (grady == 1)) | (hls_binary == 1)] = 1
 
+    combined_warped = cv2.warpPerspective(combined, M, (1280, 720), flags=cv2.INTER_NEAREST)
+    
+    return combined_warped
+```
+
+In my project i have a function called get_undistorted_combined_warped_binary_image which first undistorts the test image.
+
+After this i obtain the absolute sobel thersholds in both the x and y direction. In both the cases i use a kernel size of 3 and threshold range is 20 to 120.
+
+I then use the s channel image with a threshold between 150 to 255.
+
+At this stage of the project I spent a lot of time trying various combinations and finally settled for the combination shown above.
+
+Below i show some examples.
+
+![alt text][image11]
+
+
+![alt text][image12]
+
+
+![alt text][image13]
 
 
 #### 3. Perspective transform
@@ -229,7 +265,7 @@ Then I did some other stuff and fit my lane lines with a 2nd order polynomial ki
 
 I did this in lines # through # in my code in `my_other_file.py`
 
-#### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
+#### 6. Output Images
 
 I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
 
