@@ -51,13 +51,49 @@ P4_Tranform_undistorted_images.ipynb
 
 ### Camera Calibration
 
-#### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
+The whole camera calibration is done in a separate ipthon notebook. This notebook is called **P4_Camera_Calibration.ipynb**
 
-The code for this step is contained in the first code cell of the IPython notebook located in "./examples/example.ipynb" (or in lines # through # of the file called `some_file.py`).  
+frist an foremost i have taken note of the fact that the images are9x6 chessboard images and i ahve updated my code appropriatley.
 
-I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
+The code is below. As can be seen, i first use open cv to find the chessboard corners.
+If these are present i proceed to drawt the image using chessboard corners. I msut make a note of the fact that not all images have chessboard corners being detected. There were a total of **seventeen** images that had chessboard corners.
 
-I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
+```sh
+nx = 9
+ny = 6
+count = 0
+
+#prepare object points
+objpoints = [] #3D points in real world space
+imgpoints = [] #2D points in image plane
+
+objp = np.zeros((ny * nx, 3), np.float32)
+objp[:,:2] = np.mgrid[0:nx,0:ny].T.reshape(-1, 2) #x and y co-ordinates
+
+
+for i in range(len(images_to_load)):
+    img = images_to_load[i]
+    
+    #Convert to grayscale
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    #Find the chessboard corners
+    ret, corners = cv2.findChessboardCorners(gray, (nx, ny), None)
+
+    #If found, draw corners
+    if ret == True:
+        count =  count + 1
+        imgpoints.append(corners)
+        objpoints.append(objp)
+        #Draw and display the corners
+        cv2.drawChessboardCorners(img, (nx, ny), corners, ret)
+        filename = './chessboard_images/chessboard_image'+str(i)+'.jpg'
+        cv2.imwrite(filename, img)
+        plt.imshow(img)
+        plt.show()
+```
+
+
 
 ![alt text][image1]
 
