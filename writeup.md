@@ -263,7 +263,7 @@ An example is given below
 ![alt text][image10]
 
 
-#### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+#### 4.  Identifying Lane Line Pixels
 
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
@@ -273,7 +273,7 @@ Then I did some other stuff and fit my lane lines with a 2nd order polynomial ki
 ![alt text][image15]
 
 
-#### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+#### 5. Calculating the Radius of Curvature of the Lane and the Position of the Vehicle with respect to center.
 
 I did this in lines # through # in my code in `my_other_file.py`
 
