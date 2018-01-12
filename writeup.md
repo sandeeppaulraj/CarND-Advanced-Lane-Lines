@@ -35,9 +35,19 @@ The goals / steps of this project are the following:
 
 ### Writeup / README
 
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Advanced-Lane-Lines/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
+From a very high level the strategy i followed for this project was to dilligently follow the individual project videos and try out all the various variations using the test images using my own ipython notebooks. All the notebooks are checked into the project repository. However only 2 of them are actual required for this project submission itself.
 
-You're reading it!
+The 2 important ipython noetbooks for this project are
+
+```sh
+P4_Camera_Calibration.ipynb
+```
+
+and
+
+```sh
+P4_Tranform_undistorted_images.ipynb
+```
 
 ### Camera Calibration
 
