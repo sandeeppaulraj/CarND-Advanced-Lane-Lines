@@ -160,6 +160,11 @@ I read in the eight test images and undistort all eight of them using opencv. Be
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
+From this section onwards, all of the pertinent code can be seen in the project notebook.
+```sh
+P4_Tranform_undistorted_images.ipynb
+```
+
 I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
 
 
@@ -214,7 +219,11 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 
 ### Pipeline (video)
 
-#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+I am providing a link to the project output video below. This is also embedded into the ipython notebook. 
+
+```sh
+P4_Tranform_undistorted_images.ipynb
+```
 
 Here's a [link to my video result](./output_videos/output_video.mp4)
 
@@ -226,5 +235,25 @@ Here's a [link to my video result](./output_videos/output_video.mp4)
 
 
 Some of the issues faced during the project are below.
+
+* I had a major typo in my project which crated bad output and took a lot fo time to rectify. I explain this below.
+
+I have this section of code in my project.
+
+```sh
+hls_binary = hls_select(undist_image, thresh=(150, 255))
+
+#i then have the following sequence to combine thresholds.
+combined[((gradx == 1) & (grady == 1)) | (hls_binary == 1)] = 1
+```
+
+Instead of **(hls_binary == 1)** i had **(hls_select == 1)**
+
+This caused some major issues for me.
+
+
+* The perspective transform is a very critical part of the project. It is very impotrant to get this as **right** as possible. I had to spend a lot of time fine tuning this and trying out my project video with this perspective transform.
+
+* Combining Thresholds in time consuming but it is a fun experience.
 
 
