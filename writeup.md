@@ -12,6 +12,8 @@
 [image5]: ./undistorted_chessboard_images/undistorted_chessboard_image8.jpg "Undistorted_Chessboard image 8"
 [image6]: ./undistorted_chessboard_images/undistorted_chessboard_image18.jpg "Undistorted_Chessboard image 17"
 [image7]: ./output_images/combo_orig_undist_cb_image.jpg "Combo Chessboard image"
+[image8]: ./undistorted_images/undistorted_image2.jpg "Undistorted image 1"
+[image9]: ./undistorted_images/undistorted_image4.jpg "Undistorted image 2"
 [video1]: ./output_videos/output_video.mp4 "Video"
 
 ---
@@ -36,7 +38,7 @@ P4_Tranform_undistorted_images.ipynb
 
 The whole camera calibration is done in a separate ipthon notebook. This notebook is called **P4_Camera_Calibration.ipynb**
 
-frist an foremost i have taken note of the fact that the images are9x6 chessboard images and i ahve updated my code appropriatley.
+First an foremost i have taken note of the fact that the images are9x6 chessboard images and i ahve updated my code appropriatley.
 
 The code is below. As can be seen, i first use open cv to find the chessboard corners.
 If these are present i proceed to drawt the image using chessboard corners. I msut make a note of the fact that not all images have chessboard corners being detected. There were a total of **seventeen** images that had chessboard corners.
@@ -146,9 +148,14 @@ Below we can see a side by side image of a chessboard image with and without dis
 
 ### Pipeline (single images)
 
-#### 1. Provide an example of a distortion-corrected image.
+#### 1. Distortion Corrected Test Images.
 
-To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
+I read in the eight test images and undistort all eight of them using opencv. Belwo i present 2 examples of such undistorted images.
+
+![alt text][image8]
+
+
+![alt text][image9]
 
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
@@ -217,4 +224,7 @@ Here's a [link to my video result](./output_videos/output_video.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+
+Some of the issues faced during the project are below.
+
+
