@@ -12,8 +12,8 @@
 [image5]: ./undistorted_chessboard_images/undistorted_chessboard_image8.jpg "Undistorted_Chessboard image 8"
 [image6]: ./undistorted_chessboard_images/undistorted_chessboard_image18.jpg "Undistorted_Chessboard image 17"
 [image7]: ./output_images/combo_orig_undist_cb_image.jpg "Combo Chessboard image"
-[image8]: ./undistorted_images/undistorted_image2.jpg "Undistorted image 1"
-[image9]: ./undistorted_images/undistorted_image4.jpg "Undistorted image 2"
+[image8]: ./undistorted_images/undist_image2.jpg "Undistorted image 1"
+[image9]: ./undistorted_images/undist_image4.jpg "Undistorted image 2"
 [video1]: ./output_videos/output_video.mp4 "Video"
 
 ---
